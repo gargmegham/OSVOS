@@ -44,6 +44,9 @@ def main(seq):
         result_filenames = glob.glob(os.path.join(boundary_snapping_result_path, '*.png'))
         result_filenames.sort()
         result_imgs = [cv2.imread(img,0) for img in result_filenames]
+    else:
+        result_filenames.sort()
+        result_imgs = [cv2.imread(img,0) for img in result_filenames]
     
     # Find contours
     nameCounter = 0
@@ -66,7 +69,7 @@ def main(seq):
     else:
         boundary_snapping_result_path.sort()
         boundary_snapping_result_path = [cv2.imread(img,0) for img in boundary_snapping_result_path]
-        print("mean IOU with contour snapping: ", mean_iou_score(annotation_imgs,boundary_snapping_result_path,show_per_frame_iou))
+        print("mean IOU with contour snapping for ", seq, "is: ", mean_iou_score(annotation_imgs,boundary_snapping_result_path,show_per_frame_iou))
 
 if __name__ == '__main__':
     sequences = ['car-shadow', 'parkour', 'horsejump-high', 'flamingo', 'tennis', 'paragliding-launch', 'goat', 'bear', 'drift-chicane', 'bus', 'surf', 'swing', 'breakdance', 'car-roundabout', 'dance-twirl', 'drift-straight', 'breakdance-flare', 'lucia', 'hike', 'hockey', 'bmx-bumps', 'mallard-water', 'car-turn', 'libby', 'elephant', 'dance-jump', 'dog-agility', 'camel', 'horsejump-low', 'rollerblade', 'blackswan', 'motocross-jump', 'motocross-bumps', 'soapbox', 'drift-turn', 'scooter-black', 'bmx-trees', 'rhino', 'mallard-fly', 'kite-walk', 'paragliding', 'scooter-gray', 'soccerball', 'stroller', 'kite-surf']
