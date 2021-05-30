@@ -31,13 +31,17 @@ def mean_iou_score(annotation_imgs, result_imgs,show_per_frame_iou):
             i += 1
     return iou_score_sum/i
 
-def recall_iou_score(annotation_imgs, result_imgs):
+def recall_iou_score(annotation_imgs, result_imgs, seq_name):
     i = 1
     recall_score_img = 0
     for a_img, r_img in zip(annotation_imgs, result_imgs):
         a_img = np.array(a_img).reshape((1,np.size(a_img)))[0]
         r_img = np.array(r_img).reshape((1,np.size(r_img)))[0]
-        recall_score += recall_score(a_img, r_img, pos_label=255)
+        if np.sum(r_img)==0:
+            print(seq_name, "+" , i-1)
+        else:
+            recall_score_img += recall_score(a_img, r_img, pos_label=255)
+            i+=1
     return recall_score_img/i
 
 if __name__ == '__main__':
